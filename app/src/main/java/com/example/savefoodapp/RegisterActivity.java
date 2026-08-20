@@ -1,8 +1,7 @@
 package com.example.savefoodapp;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,11 +11,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.example.savefoodapp.security.PasswordUtils;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.savefoodapp.database.DatabaseHelper;
+import com.example.savefoodapp.database.DBAdapter;
+import com.example.savefoodapp.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -31,7 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
 
-    private DatabaseHelper databaseHelper;
+    private DBAdapter dbAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegister = findViewById(R.id.btnRegister);
 
-        databaseHelper = new DatabaseHelper(this);
+        dbAdapter = new DBAdapter(this);
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,57 +129,29 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             role = "Charity Organization";
         }
-
         // Open database
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        dbAdapter.open();
 
-        // Check if email already exists
-        String query = "SELECT id FROM users WHERE email = ?";
-
-        android.database.Cursor cursor = db.rawQuery(
-                query,
-                new String[]{email}
+// Create User object
+        User user = new User(
+                0,
+                name,
+                email,
+                password,
+                null,
+                role,
+                0
         );
+// Insert user
+        long userId = dbAdapter.insertUser(user);
+        dbAdapter.close();
+        if (userId == -1) {
 
-        if (cursor.moveToFirst()) {
-
-            cursor.close();
 
             etEmail.setError("This email is already registered");
             etEmail.requestFocus();
 
             return;
-        }
-
-        cursor.close();
-
-        // Insert user
-        String salt = PasswordUtils.generateSalt();
-
-        String passwordHash = PasswordUtils.hashPassword(
-                password,
-                salt
-        );
-
-        ContentValues values = new ContentValues();
-
-        values.put("name", name);
-        values.put("email", email);
-        values.put("password_hash", passwordHash);
-        values.put("password_salt", salt);
-        values.put("role", role);
-
-        long userId = db.insert("users", null, values);
-
-        db.close();
-
-        if (userId == -1) {
-
-            Toast.makeText(
-                    RegisterActivity.this,
-                    "Registration failed",
-                    Toast.LENGTH_SHORT
-            ).show();
 
         } else {
 
@@ -201,5 +172,3 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
     }
-    // Testing Pull Request workflow
-}
