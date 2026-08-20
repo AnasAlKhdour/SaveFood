@@ -1,3 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">SaveFood</string>
+
+    <string name="login_title">Login</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_prompt">Do not have an account? Register</string>
+    <string name="register_title">Register</string>
+    <string name="name_hint">Name</string>
+    <string name="register_button">Register</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="login_prompt">Already have an account? Login</string>
+    <string name="role_title">Register as</string>
+    <string name="food_institution">Food Institution</string>
+    <string name="charity_organization">Charity Organization</string>
+
 </resources>
