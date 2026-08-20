@@ -1,6 +1,7 @@
 package com.example.savefoodapp;
 
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.savefoodapp.database.DBAdapter;
 import com.example.savefoodapp.models.User;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName;
@@ -27,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
 
     private DBAdapter dbAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         dbAdapter = new DBAdapter(this);
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
         dbAdapter.close();
         if (userId == -1) {
 
+
             etEmail.setError("This email is already registered");
             etEmail.requestFocus();
 
@@ -167,4 +172,3 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
     }
-}

@@ -1,6 +1,7 @@
 package com.example.savefoodapp;
 
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -9,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.savefoodapp.models.User;
 import com.example.savefoodapp.database.DBAdapter;
 import com.example.savefoodapp.utils.SessionManager;
 import com.example.savefoodapp.security.PasswordUtils;
 import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail;
@@ -21,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView tvRegister;
     private SessionManager sessionManager;
-
     private DBAdapter dbAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +37,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
+
         dbAdapter = new DBAdapter(this);
         dbAdapter.open();
+
         sessionManager = new SessionManager(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -179,3 +184,4 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     }
+
