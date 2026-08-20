@@ -54,11 +54,13 @@ public class FoodHomeActivity extends AppCompatActivity {
         btnMyOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(
+
+                Intent intent = new Intent(
                         FoodHomeActivity.this,
-                        "My Offers",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        MyOffersActivity.class
+                );
+
+                startActivity(intent);
             }
         });
 
