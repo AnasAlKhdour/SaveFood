@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "savefood.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -22,10 +22,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createUsersTable = "CREATE TABLE users (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL, " +
                 "email TEXT UNIQUE NOT NULL, " +
-                "password TEXT NOT NULL, " +
+                "password_hash TEXT NOT NULL, " +
+                "password_salt TEXT NOT NULL, " +
                 "role TEXT NOT NULL, " +
-                "organization_id INTEGER" +
+                "organization_id INTEGER, " +
+                "latitude REAL, " +
+                "longitude REAL" +
                 ")";
 
         db.execSQL(createUsersTable);
