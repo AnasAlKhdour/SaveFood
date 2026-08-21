@@ -391,6 +391,71 @@ public class DBAdapter {
         );
     }
 
+    // T3.9 - Get Available Offers
+    public java.util.List<FoodDonation> getAvailableOffers() {
+
+        java.util.List<FoodDonation> offers =
+                new java.util.ArrayList<>();
+
+        String query =
+                "SELECT id, food_organization_id, food_name, quantity, " +
+                        "description, expiry_date, status " +
+                        "FROM food_donations " +
+                        "WHERE status = ? " +
+                        "ORDER BY id DESC";
+
+        Cursor cursor = database.rawQuery(
+                query,
+                new String[]{"AVAILABLE"}
+        );
+
+        while (cursor.moveToNext()) {
+
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id")
+            );
+
+            int foodOrganizationId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("food_organization_id")
+            );
+
+            String foodName = cursor.getString(
+                    cursor.getColumnIndexOrThrow("food_name")
+            );
+
+            int quantity = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("quantity")
+            );
+
+            String description = cursor.getString(
+                    cursor.getColumnIndexOrThrow("description")
+            );
+
+            String expiryDate = cursor.getString(
+                    cursor.getColumnIndexOrThrow("expiry_date")
+            );
+
+            String status = cursor.getString(
+                    cursor.getColumnIndexOrThrow("status")
+            );
+
+            FoodDonation donation = new FoodDonation(
+                    id,
+                    foodOrganizationId,
+                    foodName,
+                    quantity,
+                    description,
+                    expiryDate,
+                    status
+            );
+
+            offers.add(donation);
+        }
+
+        cursor.close();
+
+        return offers;
+    }
     public void close() {
         databaseHelper.close();
     }
