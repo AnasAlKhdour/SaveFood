@@ -186,12 +186,35 @@ public class DBAdapter {
 
         ContentValues values = new ContentValues();
 
-        values.put("food_organization_id", donation.getFoodOrganizationId());
-        values.put("food_name", donation.getFoodName());
-        values.put("quantity", donation.getQuantity());
-        values.put("description", donation.getDescription());
-        values.put("expiry_date", donation.getExpiryDate());
-        values.put("status", donation.getStatus());
+        values.put(
+                "food_organization_id",
+                donation.getFoodOrganizationId()
+        );
+
+        values.put(
+                "food_name",
+                donation.getFoodName()
+        );
+
+        values.put(
+                "quantity",
+                donation.getQuantity()
+        );
+
+        values.put(
+                "description",
+                donation.getDescription()
+        );
+
+        values.put(
+                "expiry_date",
+                donation.getExpiryDate()
+        );
+
+        values.put(
+                "status",
+                donation.getStatus()
+        );
 
         return database.insert(
                 "food_donations",
@@ -207,38 +230,49 @@ public class DBAdapter {
 
         java.util.List<FoodDonation> donations =
                 new java.util.ArrayList<>();
+
         String query =
                 "SELECT id, food_organization_id, food_name, quantity, " +
                         "description, expiry_date, status " +
                         "FROM food_donations " +
                         "WHERE food_organization_id = ? " +
                         "ORDER BY id DESC";
+
         Cursor cursor = database.rawQuery(
                 query,
                 new String[]{String.valueOf(organizationId)}
         );
+
         while (cursor.moveToNext()) {
+
             int id = cursor.getInt(
                     cursor.getColumnIndexOrThrow("id")
             );
+
             int foodOrganizationId = cursor.getInt(
                     cursor.getColumnIndexOrThrow("food_organization_id")
             );
+
             String foodName = cursor.getString(
                     cursor.getColumnIndexOrThrow("food_name")
             );
+
             int quantity = cursor.getInt(
                     cursor.getColumnIndexOrThrow("quantity")
             );
+
             String description = cursor.getString(
                     cursor.getColumnIndexOrThrow("description")
             );
+
             String expiryDate = cursor.getString(
                     cursor.getColumnIndexOrThrow("expiry_date")
             );
+
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+
             FoodDonation donation = new FoodDonation(
                     id,
                     foodOrganizationId,
@@ -248,9 +282,12 @@ public class DBAdapter {
                     expiryDate,
                     status
             );
+
             donations.add(donation);
         }
+
         cursor.close();
+
         return donations;
     }
 
@@ -317,7 +354,6 @@ public class DBAdapter {
 
         return null;
     }
-
 
     // T3.5 - Update Food Donation
     public int updateFoodDonation(
@@ -389,6 +425,111 @@ public class DBAdapter {
                 "id = ?",
                 new String[]{String.valueOf(donationId)}
         );
+    }
+
+    // T5.2 - Get Available Offers
+    public java.util.List<FoodDonation> getAvailableOffers() {
+
+        java.util.List<FoodDonation> offers =
+                new java.util.ArrayList<>();
+
+        String query =
+                "SELECT id, food_organization_id, food_name, quantity, " +
+                        "description, expiry_date, status " +
+                        "FROM food_donations " +
+                        "WHERE status = ? " +
+                        "ORDER BY id DESC";
+
+        Cursor cursor = database.rawQuery(
+                query,
+                new String[]{"AVAILABLE"}
+        );
+
+        while (cursor.moveToNext()) {
+
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id")
+            );
+
+            int foodOrganizationId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("food_organization_id")
+            );
+
+            String foodName = cursor.getString(
+                    cursor.getColumnIndexOrThrow("food_name")
+            );
+
+            int quantity = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("quantity")
+            );
+
+            String description = cursor.getString(
+                    cursor.getColumnIndexOrThrow("description")
+            );
+
+            String expiryDate = cursor.getString(
+                    cursor.getColumnIndexOrThrow("expiry_date")
+            );
+
+            String status = cursor.getString(
+                    cursor.getColumnIndexOrThrow("status")
+            );
+
+            FoodDonation donation = new FoodDonation(
+                    id,
+                    foodOrganizationId,
+                    foodName,
+                    quantity,
+                    description,
+                    expiryDate,
+                    status
+            );
+
+            offers.add(donation);
+        }
+
+        cursor.close();
+
+        return offers;
+    }
+
+    // T5.7 - Get Food Organization Location
+    public double[] getOrganizationLocation(int organizationId) {
+
+        String query =
+                "SELECT latitude, longitude " +
+                        "FROM users " +
+                        "WHERE organization_id = ? " +
+                        "AND latitude IS NOT NULL " +
+                        "AND longitude IS NOT NULL " +
+                        "LIMIT 1";
+
+        Cursor cursor = database.rawQuery(
+                query,
+                new String[]{String.valueOf(organizationId)}
+        );
+
+        if (cursor.moveToFirst()) {
+
+            double latitude = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("latitude")
+            );
+
+            double longitude = cursor.getDouble(
+                    cursor.getColumnIndexOrThrow("longitude")
+            );
+
+            cursor.close();
+
+            return new double[]{
+                    latitude,
+                    longitude
+            };
+        }
+
+        cursor.close();
+
+        return null;
     }
 
     public void close() {
