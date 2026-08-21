@@ -38,6 +38,16 @@ public class MyOffersActivity extends AppCompatActivity {
         dbAdapter = new DBAdapter(this);
         sessionManager = new SessionManager(this);
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshOffers();
+    }
+
+    private void refreshOffers() {
+        offersContainer.removeAllViews();
+        tvNoOffers.setVisibility(View.GONE);
         loadOffers();
     }
 
@@ -198,9 +208,9 @@ public class MyOffersActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
 
-            recreate();
-
-        } else {
+            refreshOffers();
+        }
+            else {
 
             Toast.makeText(
                     this,

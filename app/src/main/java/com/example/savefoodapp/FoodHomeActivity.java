@@ -12,7 +12,8 @@ import com.example.savefoodapp.utils.SessionManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FoodHomeActivity extends AppCompatActivity {
-
+    private TextView tvRole;
+    private SessionManager sessionManager;
     private TextView tvWelcome;
     private Button btnAddOffer;
     private Button btnMyOffers;
@@ -30,10 +31,18 @@ public class FoodHomeActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
 
         // Get the logged-in user's name
-        String userName = getIntent().getStringExtra("USER_NAME");
+        tvRole = findViewById(R.id.tvRole);
+        sessionManager = new SessionManager(this);
+
+        String userName = sessionManager.getUserName();
+        String userRole = sessionManager.getUserRole();
 
         if (userName != null && !userName.isEmpty()) {
             tvWelcome.setText("Welcome, " + userName);
+        }
+
+        if (userRole != null && !userRole.isEmpty()) {
+            tvRole.setText(userRole);
         }
 
         // Add Food Offer
@@ -74,9 +83,6 @@ public class FoodHomeActivity extends AppCompatActivity {
     }
 
     private void logout() {
-
-        SessionManager sessionManager =
-                new SessionManager(this);
 
         sessionManager.logout();
 
