@@ -2,6 +2,8 @@ package com.example.savefoodapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +21,16 @@ public class SplashActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
-        checkSession();
+        // Show Splash Screen for 1 second
+        new Handler(Looper.getMainLooper()).postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        checkSession();
+                    }
+                },
+                1000
+        );
     }
 
     private void checkSession() {
