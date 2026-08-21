@@ -77,4 +77,7 @@ public class FoodDonation {
     public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
+    private String imagePath;
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath;}
 }
