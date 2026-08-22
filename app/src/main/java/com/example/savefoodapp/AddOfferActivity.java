@@ -1,18 +1,38 @@
 package com.example.savefoodapp;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.savefoodapp.database.DBAdapter;
 import com.example.savefoodapp.models.FoodDonation;
 import com.example.savefoodapp.models.User;
 import com.example.savefoodapp.utils.SessionManager;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.example.savefoodapp.utils.ImageUtils;
 
 public class AddOfferActivity extends AppCompatActivity {
 
@@ -23,7 +43,11 @@ public class AddOfferActivity extends AppCompatActivity {
 
     private Button btnCreateOffer;
     private Button btnCancel;
-
+    private ImageView imgOfferPhoto;
+    private Button btnTakePhoto;
+    private String currentPhotoPath = null;
+    private ActivityResultLauncher<String> permissionLauncher;
+    private ActivityResultLauncher<Uri> cameraLauncher;
     private DBAdapter dbAdapter;
     private SessionManager sessionManager;
 
@@ -37,12 +61,42 @@ public class AddOfferActivity extends AppCompatActivity {
         etQuantity = findViewById(R.id.etQuantity);
         etDescription = findViewById(R.id.etDescription);
         etExpiryDate = findViewById(R.id.etExpiryDate);
+        imgOfferPhoto = findViewById(R.id.imgOfferPhoto);
+        btnTakePhoto = findViewById(R.id.btnTakePhoto);
 
         btnCreateOffer = findViewById(R.id.btnCreateOffer);
         btnCancel = findViewById(R.id.btnCancel);
 
         dbAdapter = new DBAdapter(this);
         sessionManager = new SessionManager(this);
+        permissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                granted -> {
+                    if (granted) {
+                        openCamera();
+                    } else {
+                        Toast.makeText(
+                                this,
+                                "Camera permission is required",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
+
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(),
+                success -> {
+                    if (success) {
+                        showPhotoPreview();
+                    } else {
+                        ImageUtils.deleteImage(currentPhotoPath);
+                        currentPhotoPath = null;
+                    }
+                }
+        );
+
+        btnTakePhoto.setOnClickListener(v -> checkCameraPermissionAndOpen());
 
         btnCreateOffer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +263,82 @@ public class AddOfferActivity extends AppCompatActivity {
             ).show();
 
             finish();
+        }
+    }
+    private void checkCameraPermissionAndOpen() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED) {
+
+            openCamera();
+
+        } else {
+            permissionLauncher.launch(Manifest.permission.CAMERA);
+        }
+    }
+
+    private void openCamera() {
+        try {
+            File photoFile = createImageFile();
+
+            Uri photoUri = FileProvider.getUriForFile(
+                    this,
+                    getPackageName() + ".fileprovider",
+                    photoFile
+            );
+
+            cameraLauncher.launch(photoUri);
+
+        } catch (IOException e) {
+            Toast.makeText(
+                    this,
+                    "Failed to create image file",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
+
+    private File createImageFile() throws IOException {
+
+        String timeStamp = new SimpleDateFormat(
+                "yyyyMMdd_HHmmss",
+                Locale.US
+        ).format(new Date());
+
+        String fileName = "OFFER_" + timeStamp + "_";
+
+        File storageDir = getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES
+        );
+
+        if (storageDir != null && !storageDir.exists()) {
+            storageDir.mkdirs();
+        }
+
+        File image = File.createTempFile(
+                fileName,
+                ".jpg",
+                storageDir
+        );
+
+        currentPhotoPath = image.getAbsolutePath();
+
+        return image;
+    }
+
+    private void showPhotoPreview() {
+
+        if (currentPhotoPath == null) return;
+
+        Bitmap bitmap = ImageUtils.decodeSampled(
+                currentPhotoPath,
+                800,
+                800
+        );
+
+        if (bitmap != null) {
+            imgOfferPhoto.setImageBitmap(bitmap);
         }
     }
 }
