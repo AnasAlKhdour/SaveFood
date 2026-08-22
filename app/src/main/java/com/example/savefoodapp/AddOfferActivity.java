@@ -357,7 +357,8 @@ public class AddOfferActivity extends AppCompatActivity {
                         quantity,
                         description,
                         expiryDate,
-                        "AVAILABLE"
+                        "AVAILABLE",
+                        currentPhotoPath
                 );
 
 
