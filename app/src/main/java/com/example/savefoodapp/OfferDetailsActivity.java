@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import android.content.Intent;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class OfferDetailsActivity extends AppCompatActivity {
@@ -13,6 +16,7 @@ public class OfferDetailsActivity extends AppCompatActivity {
     private TextView tvDescription;
     private TextView tvExpiryDate;
     private TextView tvStatus;
+    private Button btnRequestFood;
 
     private Button btnBack;
 
@@ -29,6 +33,26 @@ public class OfferDetailsActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         btnBack = findViewById(R.id.btnBack);
+        btnRequestFood = findViewById(R.id.btnRequestFood);
+
+        btnRequestFood.setOnClickListener(view -> {
+
+            Intent intent = new Intent(
+                    OfferDetailsActivity.this,
+                    RequestFoodActivity.class
+            );
+
+            intent.putExtra("DONATION_ID",
+                    getIntent().getIntExtra("DONATION_ID", 0));
+
+            intent.putExtra("FOOD_NAME",
+                    getIntent().getStringExtra("FOOD_NAME"));
+
+            intent.putExtra("QUANTITY",
+                    getIntent().getIntExtra("QUANTITY", 0));
+
+            startActivity(intent);
+        });
 
         String foodName = getIntent().getStringExtra("FOOD_NAME");
         int quantity = getIntent().getIntExtra("QUANTITY", 0);

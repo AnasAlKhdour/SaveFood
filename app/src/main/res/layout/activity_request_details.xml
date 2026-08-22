@@ -8,10 +8,10 @@
     android:padding="24dp">
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
+        android:text="Back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -19,64 +19,76 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SaveFood"
-        android:textSize="30sp"
+        android:text="REQUEST DETAILS"
+        android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
 
     <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvRequestId"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Welcome"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:text="Request ID:"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvDonationId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Offer ID:"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvRequestId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Requested Quantity:"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvDonationId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvQuantity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Accept Request"
+        app:layout_constraintTop_toBottomOf="@id/tvStatus"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp" />
 
-    <TextView
-        android:id="@+id/tvRole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Food Institution"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
-
     <Button
-        android:id="@+id/btnAddOffer"
+        android:id="@+id/btnReject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Add Food Offer"
-        app:layout_constraintTop_toBottomOf="@id/tvRole"
+        android:text="Reject Request"
+        app:layout_constraintTop_toBottomOf="@id/btnAccept"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
-
-    <Button
-        android:id="@+id/btnMyOffers"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="My Offers"
-        app:layout_constraintTop_toBottomOf="@id/btnAddOffer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/btnIncomingRequests"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Incoming Requests"
-        app:layout_constraintTop_toBottomOf="@id/btnMyOffers"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="12dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

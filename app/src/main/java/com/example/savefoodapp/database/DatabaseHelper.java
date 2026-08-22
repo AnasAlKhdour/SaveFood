@@ -3,6 +3,7 @@ package com.example.savefoodapp.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.content.ContentValues;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -94,5 +95,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
 
         onCreate(db);
+    }
+
+    public long insertRequest(
+            int donationId,
+            int charityOrganizationId,
+            int quantityRequested,
+            String status) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("donation_id", donationId);
+        values.put("charity_organization_id", charityOrganizationId);
+        values.put("quantity_requested", quantityRequested);
+        values.put("status", status);
+
+        return database.insert(
+                "donation_requests",
+                null,
+                values
+        );
     }
 }
