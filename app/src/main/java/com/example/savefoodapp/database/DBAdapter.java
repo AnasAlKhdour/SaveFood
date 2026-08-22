@@ -215,6 +215,10 @@ public class DBAdapter {
                 "status",
                 donation.getStatus()
         );
+        values.put(
+                "image_path",
+                donation.getImagePath()
+        );
 
         return database.insert(
                 "food_donations",
@@ -233,7 +237,7 @@ public class DBAdapter {
 
         String query =
                 "SELECT id, food_organization_id, food_name, quantity, " +
-                        "description, expiry_date, status " +
+                        "description, expiry_date, status, image_path " +
                         "FROM food_donations " +
                         "WHERE food_organization_id = ? " +
                         "ORDER BY id DESC";
@@ -272,6 +276,9 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+            String imagePath = cursor.getString(
+                    cursor.getColumnIndexOrThrow("image_path")
+            );
 
             FoodDonation donation = new FoodDonation(
                     id,
@@ -280,7 +287,8 @@ public class DBAdapter {
                     quantity,
                     description,
                     expiryDate,
-                    status
+                    status,
+                    imagePath
             );
 
             donations.add(donation);
@@ -296,7 +304,7 @@ public class DBAdapter {
 
         String query =
                 "SELECT id, food_organization_id, food_name, quantity, " +
-                        "description, expiry_date, status " +
+                        "description, expiry_date, status, image_path " +
                         "FROM food_donations " +
                         "WHERE id = ?";
 
@@ -334,6 +342,9 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+            String imagePath = cursor.getString(
+                    cursor.getColumnIndexOrThrow("image_path")
+            );
 
             FoodDonation donation = new FoodDonation(
                     id,
@@ -342,7 +353,8 @@ public class DBAdapter {
                     quantity,
                     description,
                     expiryDate,
-                    status
+                    status,
+                    imagePath
             );
 
             cursor.close();
@@ -435,7 +447,7 @@ public class DBAdapter {
 
         String query =
                 "SELECT id, food_organization_id, food_name, quantity, " +
-                        "description, expiry_date, status " +
+                        "description, expiry_date, status, image_path " +
                         "FROM food_donations " +
                         "WHERE status = ? " +
                         "ORDER BY id DESC";
@@ -474,6 +486,9 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+            String imagePath = cursor.getString(
+                    cursor.getColumnIndexOrThrow("image_path")
+            );
 
             FoodDonation donation = new FoodDonation(
                     id,
@@ -482,7 +497,8 @@ public class DBAdapter {
                     quantity,
                     description,
                     expiryDate,
-                    status
+                    status,
+                    imagePath
             );
 
             offers.add(donation);

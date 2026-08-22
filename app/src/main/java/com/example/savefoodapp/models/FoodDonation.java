@@ -8,11 +8,10 @@ public class FoodDonation {
     private String description;
     private String expiryDate;
     private String status;
-
-
+    private String imagePath;
     public FoodDonation(int id, int foodOrganizationId, String foodName,
                         int quantity, String description, String expiryDate,
-                        String status) {
+                        String status, String imagePath) {
         this.id = id;
         this.foodOrganizationId = foodOrganizationId;
         this.foodName = foodName;
@@ -20,6 +19,7 @@ public class FoodDonation {
         this.description = description;
         this.expiryDate = expiryDate;
         this.status = status;
+        this.imagePath = imagePath;
     }
 
     public int getId() {
@@ -77,7 +77,6 @@ public class FoodDonation {
     public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
-    private String imagePath;
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath;}
 }
