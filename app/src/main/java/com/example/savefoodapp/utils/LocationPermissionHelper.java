@@ -34,12 +34,13 @@ public class LocationPermissionHelper {
                 },
                 LOCATION_PERMISSION_REQUEST_CODE
         );
-
     }
+
     public static boolean isLocationPermissionGranted(
             int requestCode,
             int[] grantResults
     ) {
+
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return false;
         }
@@ -48,12 +49,14 @@ public class LocationPermissionHelper {
             return false;
         }
 
+        // FINE or COARSE is enough
         for (int result : grantResults) {
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                return false;
+
+            if (result == PackageManager.PERMISSION_GRANTED) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

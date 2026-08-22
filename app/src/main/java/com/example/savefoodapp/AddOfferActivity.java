@@ -1,10 +1,12 @@
 package com.example.savefoodapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,26 +15,20 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.example.savefoodapp.database.DBAdapter;
 import com.example.savefoodapp.models.FoodDonation;
 import com.example.savefoodapp.models.User;
+import com.example.savefoodapp.utils.ImageUtils;
 import com.example.savefoodapp.utils.SessionManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.example.savefoodapp.utils.ImageUtils;
+import java.util.Locale;
 
 public class AddOfferActivity extends AppCompatActivity {
 
@@ -45,134 +41,261 @@ public class AddOfferActivity extends AppCompatActivity {
     private Button btnCancel;
     private ImageView imgOfferPhoto;
     private Button btnTakePhoto;
+
     private String currentPhotoPath = null;
-    private ActivityResultLauncher<String> permissionLauncher;
+
+    private ActivityResultLauncher<String> cameraPermissionLauncher;
     private ActivityResultLauncher<Uri> cameraLauncher;
+
     private DBAdapter dbAdapter;
     private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_offer);
 
-        etFoodName = findViewById(R.id.etFoodName);
-        etQuantity = findViewById(R.id.etQuantity);
-        etDescription = findViewById(R.id.etDescription);
-        etExpiryDate = findViewById(R.id.etExpiryDate);
-        imgOfferPhoto = findViewById(R.id.imgOfferPhoto);
-        btnTakePhoto = findViewById(R.id.btnTakePhoto);
+        // ------------------------------------------------
+        // Connect UI
+        // ------------------------------------------------
 
-        btnCreateOffer = findViewById(R.id.btnCreateOffer);
-        btnCancel = findViewById(R.id.btnCancel);
+        etFoodName =
+                findViewById(R.id.etFoodName);
 
-        dbAdapter = new DBAdapter(this);
-        sessionManager = new SessionManager(this);
-        permissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                granted -> {
-                    if (granted) {
-                        openCamera();
-                    } else {
-                        Toast.makeText(
-                                this,
-                                "Camera permission is required",
-                                Toast.LENGTH_LONG
-                        ).show();
-                    }
-                }
+        etQuantity =
+                findViewById(R.id.etQuantity);
+
+        etDescription =
+                findViewById(R.id.etDescription);
+
+        etExpiryDate =
+                findViewById(R.id.etExpiryDate);
+
+        imgOfferPhoto =
+                findViewById(R.id.imgOfferPhoto);
+
+        btnTakePhoto =
+                findViewById(R.id.btnTakePhoto);
+
+        btnCreateOffer =
+                findViewById(R.id.btnCreateOffer);
+
+        btnCancel =
+                findViewById(R.id.btnCancel);
+
+        dbAdapter =
+                new DBAdapter(this);
+
+        sessionManager =
+                new SessionManager(this);
+
+
+        // ------------------------------------------------
+        // Camera Permission
+        // ------------------------------------------------
+
+        cameraPermissionLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.RequestPermission(),
+                        granted -> {
+
+                            if (granted) {
+
+                                openCamera();
+
+                            } else {
+
+                                Toast.makeText(
+                                        this,
+                                        R.string.camera_permission_required,
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        }
+                );
+
+
+        // ------------------------------------------------
+        // Camera Result
+        // ------------------------------------------------
+
+        cameraLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.TakePicture(),
+                        success -> {
+
+                            if (success) {
+
+                                showPhotoPreview();
+
+                            } else {
+
+                                ImageUtils.deleteImage(
+                                        currentPhotoPath
+                                );
+
+                                currentPhotoPath = null;
+                            }
+                        }
+                );
+
+
+        // ------------------------------------------------
+        // Buttons
+        // ------------------------------------------------
+
+        btnTakePhoto.setOnClickListener(
+                v -> checkCameraPermissionAndOpen()
         );
 
-        cameraLauncher = registerForActivityResult(
-                new ActivityResultContracts.TakePicture(),
-                success -> {
-                    if (success) {
-                        showPhotoPreview();
-                    } else {
-                        ImageUtils.deleteImage(currentPhotoPath);
-                        currentPhotoPath = null;
-                    }
-                }
+        btnCreateOffer.setOnClickListener(
+                v -> createOffer()
         );
 
-        btnTakePhoto.setOnClickListener(v -> checkCameraPermissionAndOpen());
-
-        btnCreateOffer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createOffer();
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btnCancel.setOnClickListener(
+                v -> finish()
+        );
     }
+
+
+    // =========================================================
+    // CREATE OFFER
+    // =========================================================
 
     private void createOffer() {
 
-        String foodName = etFoodName.getText().toString().trim();
-        String quantityText = etQuantity.getText().toString().trim();
-        String description = etDescription.getText().toString().trim();
-        String expiryDate = etExpiryDate.getText().toString().trim();
+        String foodName =
+                etFoodName.getText()
+                        .toString()
+                        .trim();
 
-        // Food name validation
+        String quantityText =
+                etQuantity.getText()
+                        .toString()
+                        .trim();
+
+        String description =
+                etDescription.getText()
+                        .toString()
+                        .trim();
+
+        String expiryDate =
+                etExpiryDate.getText()
+                        .toString()
+                        .trim();
+
+
+        // ------------------------------------------------
+        // Food Name Validation
+        // ------------------------------------------------
+
         if (TextUtils.isEmpty(foodName)) {
-            etFoodName.setError("Please enter food name");
+
+            etFoodName.setError(
+                    getString(R.string.enter_food_name)
+            );
+
             etFoodName.requestFocus();
+
             return;
         }
 
-        // Quantity validation
+
+        // ------------------------------------------------
+        // Quantity Validation
+        // ------------------------------------------------
+
         if (TextUtils.isEmpty(quantityText)) {
-            etQuantity.setError("Please enter quantity");
+
+            etQuantity.setError(
+                    getString(R.string.enter_quantity)
+            );
+
             etQuantity.requestFocus();
+
             return;
         }
 
         int quantity;
 
         try {
-            quantity = Integer.parseInt(quantityText);
+
+            quantity =
+                    Integer.parseInt(quantityText);
+
         } catch (NumberFormatException e) {
-            etQuantity.setError("Please enter a valid quantity");
+
+            etQuantity.setError(
+                    getString(R.string.valid_quantity)
+            );
+
             etQuantity.requestFocus();
+
             return;
         }
 
         if (quantity <= 0) {
-            etQuantity.setError("Quantity must be greater than 0");
+
+            etQuantity.setError(
+                    getString(
+                            R.string.quantity_greater_than_zero
+                    )
+            );
+
             etQuantity.requestFocus();
+
             return;
         }
 
-        // Expiry date validation
+
+        // ------------------------------------------------
+        // Expiry Date Validation
+        // ------------------------------------------------
+
         if (TextUtils.isEmpty(expiryDate)) {
-            etExpiryDate.setError("Please enter expiry date");
+
+            etExpiryDate.setError(
+                    getString(
+                            R.string.enter_expiry_date
+                    )
+            );
+
             etExpiryDate.requestFocus();
+
             return;
         }
 
-        // Get logged-in user's email
-        String userEmail = sessionManager.getUserEmail();
+
+        // ------------------------------------------------
+        // Get Logged-in User
+        // ------------------------------------------------
+
+        String userEmail =
+                sessionManager.getUserEmail();
 
         if (TextUtils.isEmpty(userEmail)) {
+
             Toast.makeText(
                     this,
-                    "User session not found",
+                    R.string.user_session_not_found,
                     Toast.LENGTH_SHORT
             ).show();
+
             return;
         }
 
-        // Get current user from database
+
+        // ------------------------------------------------
+        // Open Database
+        // ------------------------------------------------
+
         dbAdapter.open();
 
-        User user = dbAdapter.getUser(userEmail);
+
+        User user =
+                dbAdapter.getUser(userEmail);
 
         if (user == null) {
 
@@ -180,78 +303,85 @@ public class AddOfferActivity extends AppCompatActivity {
 
             Toast.makeText(
                     this,
-                    "User not found",
+                    R.string.user_not_found,
                     Toast.LENGTH_SHORT
             ).show();
 
             return;
         }
 
-        int organizationId = user.getOrganizationId();
+
+        // ------------------------------------------------
+        // Get Existing Organization
+        // ------------------------------------------------
+
+        int organizationId =
+                user.getOrganizationId();
 
         if (organizationId <= 0) {
 
-            long newOrgId = dbAdapter.insertFoodOrganization(
-                    user.getName(),
-                    "-",
-                    "-"
-            );
+            dbAdapter.close();
 
-            if (newOrgId == -1) {
+            Toast.makeText(
+                    this,
+                    R.string.organization_not_found,
+                    Toast.LENGTH_LONG
+            ).show();
 
-                dbAdapter.close();
-
-                Toast.makeText(
-                        this,
-                        "Failed to create food organization",
-                        Toast.LENGTH_LONG
-                ).show();
-
-                return;
-            }
-
-            int updated = dbAdapter.updateUserOrganizationId(
-                    userEmail,
-                    (int) newOrgId
-            );
-
-            if (updated == 0) {
-
-                dbAdapter.close();
-
-                Toast.makeText(
-                        this,
-                        "Failed to link organization",
-                        Toast.LENGTH_LONG
-                ).show();
-
-                return;
-            }
-
-            organizationId = (int) newOrgId;
+            return;
         }
-        // Create FoodDonation object
-        FoodDonation donation = new FoodDonation(
-                0,
-                organizationId,
-                foodName,
-                quantity,
-                description,
-                expiryDate,
-                "AVAILABLE",
-                currentPhotoPath
-        );
 
-        // Insert donation
-        long donationId = dbAdapter.insertFoodDonation(donation);
+
+        /*
+         * IMPORTANT:
+         *
+         * We do NOT ask for the location here.
+         *
+         * The organization location was already selected
+         * during registration and saved inside
+         * food_organizations.
+         *
+         * The offer only needs the organization ID.
+         */
+
+
+        // ------------------------------------------------
+        // Create Food Donation
+        // ------------------------------------------------
+
+        FoodDonation donation =
+                new FoodDonation(
+                        0,
+                        organizationId,
+                        foodName,
+                        quantity,
+                        description,
+                        expiryDate,
+                        "AVAILABLE"
+                );
+
+
+        // ------------------------------------------------
+        // Insert Donation
+        // ------------------------------------------------
+
+        long donationId =
+                dbAdapter.insertFoodDonation(
+                        donation
+                );
 
         dbAdapter.close();
+
+
+        // ------------------------------------------------
+        // Result
+        // ------------------------------------------------
 
         if (donationId == -1) {
 
             Toast.makeText(
                     this,
-                    "Failed to create offer",
+                    R.string.failed_create_offer,
                     Toast.LENGTH_SHORT
             ).show();
 
@@ -259,14 +389,21 @@ public class AddOfferActivity extends AppCompatActivity {
 
             Toast.makeText(
                     this,
-                    "Offer created successfully",
+                    R.string.offer_created_successfully,
                     Toast.LENGTH_SHORT
             ).show();
 
             finish();
         }
     }
+
+
+    // =========================================================
+    // CAMERA
+    // =========================================================
+
     private void checkCameraPermissionAndOpen() {
+
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.CAMERA
@@ -275,71 +412,99 @@ public class AddOfferActivity extends AppCompatActivity {
             openCamera();
 
         } else {
-            permissionLauncher.launch(Manifest.permission.CAMERA);
+
+            cameraPermissionLauncher.launch(
+                    Manifest.permission.CAMERA
+            );
         }
     }
 
-    private void openCamera() {
-        try {
-            File photoFile = createImageFile();
 
-            Uri photoUri = FileProvider.getUriForFile(
-                    this,
-                    getPackageName() + ".fileprovider",
-                    photoFile
+    private void openCamera() {
+
+        try {
+
+            File photoFile =
+                    createImageFile();
+
+            Uri photoUri =
+                    FileProvider.getUriForFile(
+                            this,
+                            getPackageName()
+                                    + ".fileprovider",
+                            photoFile
+                    );
+
+            cameraLauncher.launch(
+                    photoUri
             );
 
-            cameraLauncher.launch(photoUri);
-
         } catch (IOException e) {
+
             Toast.makeText(
                     this,
-                    "Failed to create image file",
+                    R.string.failed_create_image_file,
                     Toast.LENGTH_SHORT
             ).show();
         }
     }
 
-    private File createImageFile() throws IOException {
 
-        String timeStamp = new SimpleDateFormat(
-                "yyyyMMdd_HHmmss",
-                Locale.US
-        ).format(new Date());
+    private File createImageFile()
+            throws IOException {
 
-        String fileName = "OFFER_" + timeStamp + "_";
+        String timeStamp =
+                new SimpleDateFormat(
+                        "yyyyMMdd_HHmmss",
+                        Locale.US
+                ).format(new Date());
 
-        File storageDir = getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-        );
+        String fileName =
+                "OFFER_" + timeStamp + "_";
 
-        if (storageDir != null && !storageDir.exists()) {
+        File storageDir =
+                getExternalFilesDir(
+                        Environment.DIRECTORY_PICTURES
+                );
+
+        if (storageDir != null
+                && !storageDir.exists()) {
+
             storageDir.mkdirs();
         }
 
-        File image = File.createTempFile(
-                fileName,
-                ".jpg",
-                storageDir
-        );
+        File image =
+                File.createTempFile(
+                        fileName,
+                        ".jpg",
+                        storageDir
+                );
 
-        currentPhotoPath = image.getAbsolutePath();
+        currentPhotoPath =
+                image.getAbsolutePath();
 
         return image;
     }
 
+
     private void showPhotoPreview() {
 
-        if (currentPhotoPath == null) return;
+        if (currentPhotoPath == null) {
+            return;
+        }
 
-        Bitmap bitmap = ImageUtils.decodeSampled(
-                currentPhotoPath,
-                800,
-                800
-        );
+        Bitmap bitmap =
+                ImageUtils.decodeSampled(
+                        currentPhotoPath,
+                        800,
+                        800
+                );
 
         if (bitmap != null) {
-            imgOfferPhoto.setImageBitmap(bitmap);
+
+            imgOfferPhoto.setImageBitmap(
+                    bitmap
+            );
         }
     }
 }

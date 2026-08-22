@@ -367,51 +367,63 @@ public class AvailableOffersActivity extends AppCompatActivity {
 // Charity and Food Organization
     private double calculateDistanceForOffer(FoodDonation offer) {
 
-        // Get Food Organization location
         double[] organizationLocation =
                 dbAdapter.getOrganizationLocation(
                         offer.getFoodOrganizationId()
                 );
 
-        // Check if Food Organization location exists
+        // Organization location not found
         if (organizationLocation == null) {
 
             android.util.Log.d(
                     "DISTANCE_TEST",
-                    "Organization location is NULL for organization ID: "
-                            + offer.getFoodOrganizationId()
+                    "Organization location is NULL"
             );
 
             return -1;
         }
 
-        // Print Charity location for testing
-        android.util.Log.d(
-                "DISTANCE_TEST",
-                "Charity location: "
-                        + charityLatitude
-                        + ", "
-                        + charityLongitude
-        );
-
-        // Check if Charity location exists
-        if (charityLatitude == 0.0
-                && charityLongitude == 0.0) {
-
-            android.util.Log.d(
-                    "DISTANCE_TEST",
-                    "Charity location is not available"
-            );
-
-            return -1;
-        }
-
-        // Food Organization coordinates
         double organizationLatitude =
                 organizationLocation[0];
 
         double organizationLongitude =
                 organizationLocation[1];
+
+        // Print all coordinates
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "================================"
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "Charity Latitude = "
+                        + charityLatitude
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "Charity Longitude = "
+                        + charityLongitude
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "Organization ID = "
+                        + offer.getFoodOrganizationId()
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "Organization Latitude = "
+                        + organizationLatitude
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "Organization Longitude = "
+                        + organizationLongitude
+        );
 
         // Calculate distance
         float[] results = new float[1];
@@ -424,23 +436,26 @@ public class AvailableOffersActivity extends AppCompatActivity {
                 results
         );
 
-        // Distance is returned in meters
+        double distanceInMeters = results[0];
+
         double distanceInKm =
-                results[0] / 1000.0;
+                distanceInMeters / 1000.0;
 
         android.util.Log.d(
                 "DISTANCE_TEST",
-                "Organization location: "
-                        + organizationLatitude
-                        + ", "
-                        + organizationLongitude
+                "Distance meters = "
+                        + distanceInMeters
         );
 
         android.util.Log.d(
                 "DISTANCE_TEST",
-                "Distance: "
+                "Distance km = "
                         + distanceInKm
-                        + " km"
+        );
+
+        android.util.Log.d(
+                "DISTANCE_TEST",
+                "================================"
         );
 
         return distanceInKm;

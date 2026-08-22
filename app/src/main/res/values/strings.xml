@@ -1,20 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App -->
     <string name="app_name">SaveFood</string>
 
+
+    <!-- Login -->
     <string name="login_title">Login</string>
-    <string name="email_hint">Email</string>
-    <string name="password_hint">Password</string>
     <string name="login_button">Login</string>
     <string name="register_prompt">Do not have an account? Register</string>
-    <string name="register_title">Register</string>
-    <string name="name_hint">Name</string>
-    <string name="register_button">Register</string>
+
+
+    <!-- Register -->
+    <string name="register_title">Create Account</string>
+    <string name="register_subtitle">Create your SaveFood account</string>
+
+    <string name="name_hint">Full Name</string>
+    <string name="email_hint">Email Address</string>
+    <string name="phone_hint">Phone Number</string>
+    <string name="password_hint">Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
-    <string name="login_prompt">Already have an account? Login</string>
+
     <string name="role_title">Register as</string>
+    <string name="role_subtitle">Choose the type of organization you represent</string>
+
     <string name="food_institution">Food Institution</string>
     <string name="charity_organization">Charity Organization</string>
 
+    <string name="register_button">Create Account</string>
+    <string name="login_prompt">Already have an account? Login</string>
+
+
+    <!-- Register Validation -->
+    <string name="enter_name">Please enter your name</string>
+    <string name="enter_email">Please enter your email</string>
+    <string name="valid_email">Please enter a valid email</string>
+
+    <string name="enter_phone">Please enter your phone number</string>
+    <string name="valid_phone">Please enter a valid Jordanian phone number</string>
+
+    <string name="enter_password">Please enter a password</string>
+    <string name="password_minimum">Password must be at least 6 characters</string>
+    <string name="confirm_password_required">Please confirm your password</string>
+    <string name="passwords_not_match">Passwords do not match</string>
+
+    <string name="select_role">Please select your role</string>
+
+    <string name="organization_creation_failed">Failed to create organization</string>
+    <string name="email_already_registered">This email is already registered</string>
+    <string name="registration_successful">Registration successful</string>
+
+
+    <!-- Location -->
+    <string name="location_picker_hint">Select the organization location on the map</string>
+    <string name="confirm_location">Confirm Location</string>
+    <string name="selected_location">Selected Location</string>
+    <string name="current_location">Current Location</string>
+
+    <string name="location_not_available">
+        Unable to get your current location. You can select the location manually.
+    </string>
+
+    <string name="select_location_first">
+        Please select a location on the map first.
+    </string>
+
+    <string name="manual_location_selection">
+        You can select the location manually from the map.
+    </string>
+
+    <string name="location_selected">
+        Location selected successfully
+    </string>
+
+    <string name="location_permission_required">
+        Location permission was denied. You can select the location manually.
+    </string>
+
+
+    <!-- Camera -->
+    <string name="camera_permission_required">
+        Camera permission is required
+    </string>
+
+    <string name="failed_create_image_file">
+        Failed to create image file
+    </string>
+
+
+    <!-- Add Offer -->
+    <string name="enter_food_name">
+        Please enter food name
+    </string>
+
+    <string name="enter_quantity">
+        Please enter quantity
+    </string>
+
+    <string name="valid_quantity">
+        Please enter a valid quantity
+    </string>
+
+    <string name="quantity_greater_than_zero">
+        Quantity must be greater than 0
+    </string>
+
+    <string name="enter_expiry_date">
+        Please enter expiry date
+    </string>
+
+    <string name="user_session_not_found">
+        User session not found
+    </string>
+
+    <string name="user_not_found">
+        User not found
+    </string>
+
+    <string name="failed_create_food_organization">
+        Failed to create food organization
+    </string>
+
+    <string name="failed_link_organization">
+        Failed to link organization
+    </string>
+
+    <string name="failed_create_offer">
+        Failed to create offer
+    </string>
+
+    <string name="offer_created_successfully">
+        Offer created successfully
+    </string>
+
+
+    <!-- Registration Rules -->
+    <string name="rules_title">Before You Continue</string>
+
+    <string name="rules_subtitle">
+        Please review the following rules before creating your SaveFood account.
+    </string>
+
+    <string name="registration_rules">
+        1. Provide accurate and valid information when creating your account.
+
+        2. Your phone number will be used as the contact number for your organization.
+
+        3. You must select the correct organization type during registration.
+
+        4. Your organization location must be accurate to help other users find your organization.
+
+        5. Do not provide false, misleading, or unauthorized information.
+
+        6. Use your account only for legitimate food donation and charity activities.
+
+        7. Keep your account credentials secure and do not share your password with others.
+
+        8. By continuing, you confirm that you understand and agree to these rules.
+    </string>
+
+    <string name="agree_to_rules">
+        I have read and agree to the SaveFood rules.
+    </string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="continue_button">Continue</string>
+
+
+    <string name="agree_rules_required">
+    You must agree to the SaveFood rules before continuing.
+    </string>
+
+    <string name="organization_not_found">
+    Organization not found. Please register again.
+</string>
 </resources>

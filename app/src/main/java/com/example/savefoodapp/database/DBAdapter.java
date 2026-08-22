@@ -395,7 +395,9 @@ public class DBAdapter {
     public long insertFoodOrganization(
             String name,
             String phone,
-            String address
+            String address,
+            double latitude,
+            double longitude
     ) {
 
         ContentValues values = new ContentValues();
@@ -403,9 +405,35 @@ public class DBAdapter {
         values.put("name", name);
         values.put("phone", phone);
         values.put("address", address);
+        values.put("latitude", latitude);
+        values.put("longitude", longitude);
 
         return database.insert(
                 "food_organizations",
+                null,
+                values
+        );
+    }
+
+    // Insert Charity Organization
+    public long insertCharityOrganization(
+            String name,
+            String phone,
+            String address,
+            double latitude,
+            double longitude
+    ) {
+
+        ContentValues values = new ContentValues();
+
+        values.put("name", name);
+        values.put("phone", phone);
+        values.put("address", address);
+        values.put("latitude", latitude);
+        values.put("longitude", longitude);
+
+        return database.insert(
+                "charity_organizations",
                 null,
                 values
         );
@@ -514,8 +542,8 @@ public class DBAdapter {
 
         String query =
                 "SELECT latitude, longitude " +
-                        "FROM users " +
-                        "WHERE organization_id = ? " +
+                        "FROM food_organizations " +
+                        "WHERE id = ? " +
                         "AND latitude IS NOT NULL " +
                         "AND longitude IS NOT NULL " +
                         "LIMIT 1";
