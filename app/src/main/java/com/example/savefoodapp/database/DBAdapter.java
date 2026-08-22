@@ -532,6 +532,77 @@ public class DBAdapter {
         return null;
     }
 
+    // T6.10 - Insert Request
+    public long insertRequest(
+            int donationId,
+            int charityOrganizationId,
+            int quantityRequested,
+            String status) {
+
+        ContentValues values = new ContentValues();
+
+        values.put("donation_id", donationId);
+        values.put("charity_organization_id", charityOrganizationId);
+        values.put("quantity_requested", quantityRequested);
+        values.put("status", status);
+
+        return database.insert(
+                "donation_requests",
+                null,
+                values
+        );
+    }
+
+
+    // T6.11 - Get Requests by Charity
+    public Cursor getRequestsByCharity(int charityOrganizationId) {
+
+        String query =
+                "SELECT * FROM donation_requests " +
+                        "WHERE charity_organization_id = ? " +
+                        "ORDER BY id DESC";
+
+        return database.rawQuery(
+                query,
+                new String[]{String.valueOf(charityOrganizationId)}
+        );
+    }
+
+
+    // T6.12 - Get Requests by Institution
+    public Cursor getRequestsByInstitution(int foodOrganizationId) {
+
+        String query =
+                "SELECT donation_requests.* " +
+                        "FROM donation_requests " +
+                        "INNER JOIN food_donations " +
+                        "ON donation_requests.donation_id = food_donations.id " +
+                        "WHERE food_donations.food_organization_id = ? " +
+                        "ORDER BY donation_requests.id DESC";
+
+        return database.rawQuery(
+                query,
+                new String[]{String.valueOf(foodOrganizationId)}
+        );
+    }
+
+
+    // T6.13 - Update Request Status
+    public int updateRequestStatus(
+            int requestId,
+            String newStatus) {
+
+        ContentValues values = new ContentValues();
+        values.put("status", newStatus);
+
+        return database.update(
+                "donation_requests",
+                values,
+                "id = ?",
+                new String[]{String.valueOf(requestId)}
+        );
+    }
+
     public void close() {
         databaseHelper.close();
     }
