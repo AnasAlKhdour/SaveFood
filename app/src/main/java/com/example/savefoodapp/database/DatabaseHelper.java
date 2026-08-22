@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "savefood.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,6 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "description TEXT, " +
                 "expiry_date TEXT NOT NULL, " +
                 "status TEXT NOT NULL, " +
+                "image_path TEXT, " +
                 "FOREIGN KEY(food_organization_id) REFERENCES food_organizations(id)" +
                 ")";
 

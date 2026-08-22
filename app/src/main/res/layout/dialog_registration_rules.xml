@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white">
+
+    <!-- Title -->
+
+    <TextView
+        android:id="@+id/tvRulesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rules_title"
+        android:textColor="#17202A"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Subtitle -->
+
+    <TextView
+        android:id="@+id/tvRulesSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/rules_subtitle"
+        android:textColor="#6B7280"
+        android:textSize="14sp" />
+
+    <!-- Rules -->
+
+    <ScrollView
+        android:id="@+id/rulesScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="18dp"
+        android:background="#F8F9FA"
+        android:padding="16dp"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvRules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/registration_rules"
+                android:textColor="#374151"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Agreement -->
+
+    <CheckBox
+        android:id="@+id/cbAgreeRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:buttonTint="?attr/colorPrimary"
+        android:text="@string/agree_to_rules"
+        android:textColor="#17202A"
+        android:textSize="14sp" />
+
+    <!-- Buttons -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancelRules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinueRules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/continue_button"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</LinearLayout>
