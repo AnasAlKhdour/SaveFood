@@ -19,7 +19,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OFFER DETAILS"
+        android:text="REQUEST FOOD"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/btnBack"
@@ -39,7 +39,7 @@
         android:layout_marginTop="40dp" />
 
     <TextView
-        android:id="@+id/tvQuantity"
+        android:id="@+id/tvAvailableQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -48,43 +48,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />
 
-    <TextView
-        android:id="@+id/tvDescription"
+    <EditText
+        android:id="@+id/etRequestedQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tvQuantity"
+        android:hint="Requested Quantity"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/tvAvailableQuantity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvExpiryDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tvExpiryDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="24dp" />
 
     <Button
-        android:id="@+id/btnRequestFood"
+        android:id="@+id/btnSubmitRequest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Request Food"
+        android:text="Submit Request"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus"
+        app:layout_constraintTop_toBottomOf="@id/etRequestedQuantity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp" />

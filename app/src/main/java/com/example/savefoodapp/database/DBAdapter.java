@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.savefoodapp.models.FoodDonation;
 import com.example.savefoodapp.models.User;
 import com.example.savefoodapp.security.PasswordUtils;
+import com.example.savefoodapp.models.DonationRequest;
 
 public class DBAdapter {
 
@@ -95,7 +96,6 @@ public class DBAdapter {
                 organizationId = cursor.getInt(organizationColumnIndex);
             }
 
-            // Get user's location
             double latitude = 0.0;
             double longitude = 0.0;
 
@@ -113,7 +113,6 @@ public class DBAdapter {
                 longitude = cursor.getDouble(longitudeIndex);
             }
 
-            // Create User object
             User user = new User(
                     id,
                     name,
@@ -124,7 +123,6 @@ public class DBAdapter {
                     organizationId
             );
 
-            // Set location
             user.setLatitude(latitude);
             user.setLongitude(longitude);
 
@@ -215,6 +213,7 @@ public class DBAdapter {
                 "status",
                 donation.getStatus()
         );
+
         values.put(
                 "image_path",
                 donation.getImagePath()
@@ -276,6 +275,7 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+
             String imagePath = cursor.getString(
                     cursor.getColumnIndexOrThrow("image_path")
             );
@@ -342,6 +342,7 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+
             String imagePath = cursor.getString(
                     cursor.getColumnIndexOrThrow("image_path")
             );
@@ -460,11 +461,37 @@ public class DBAdapter {
     // T3.6 - Delete Food Donation
     public int deleteFoodDonation(int donationId) {
 
-        return database.delete(
-                "food_donations",
-                "id = ?",
-                new String[]{String.valueOf(donationId)}
-        );
+        database.beginTransaction();
+
+        try {
+
+            // Delete requests related to this donation first
+            database.delete(
+                    "donation_requests",
+                    "donation_id = ?",
+                    new String[]{
+                            String.valueOf(donationId)
+                    }
+            );
+
+            // Delete the donation
+            int result =
+                    database.delete(
+                            "food_donations",
+                            "id = ?",
+                            new String[]{
+                                    String.valueOf(donationId)
+                            }
+                    );
+
+            database.setTransactionSuccessful();
+
+            return result;
+
+        } finally {
+
+            database.endTransaction();
+        }
     }
 
     // T5.2 - Get Available Offers
@@ -514,6 +541,7 @@ public class DBAdapter {
             String status = cursor.getString(
                     cursor.getColumnIndexOrThrow("status")
             );
+
             String imagePath = cursor.getString(
                     cursor.getColumnIndexOrThrow("image_path")
             );
@@ -574,6 +602,348 @@ public class DBAdapter {
         cursor.close();
 
         return null;
+    }
+
+    // ====================================================
+    // SPRINT 6 - REQUESTS
+    // ====================================================
+
+    // T6.10 - Insert Donation Request
+    public long insertRequest(DonationRequest request) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(
+                "donation_id",
+                request.getDonationId()
+        );
+
+        values.put(
+                "charity_organization_id",
+                request.getCharityOrganizationId()
+        );
+
+        values.put(
+                "quantity_requested",
+                request.getQuantityRequested()
+        );
+
+        values.put(
+                "status",
+                request.getStatus()
+        );
+
+        return database.insert(
+                "donation_requests",
+                null,
+                values
+        );
+    }
+
+    // T6.11 - Get Requests by Charity
+    public java.util.List<DonationRequest> getRequestsByCharity(
+            int charityOrganizationId
+    ) {
+
+        java.util.List<DonationRequest> requests =
+                new java.util.ArrayList<>();
+
+        String query =
+                "SELECT id, donation_id, charity_organization_id, " +
+                        "quantity_requested, status " +
+                        "FROM donation_requests " +
+                        "WHERE charity_organization_id = ? " +
+                        "ORDER BY id DESC";
+
+        Cursor cursor = database.rawQuery(
+                query,
+                new String[]{
+                        String.valueOf(charityOrganizationId)
+                }
+        );
+
+        while (cursor.moveToNext()) {
+
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id")
+            );
+
+            int donationId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("donation_id")
+            );
+
+            int charityId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(
+                            "charity_organization_id"
+                    )
+            );
+
+            int quantityRequested = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(
+                            "quantity_requested"
+                    )
+            );
+
+            String status = cursor.getString(
+                    cursor.getColumnIndexOrThrow("status")
+            );
+
+            DonationRequest request =
+                    new DonationRequest(
+                            id,
+                            donationId,
+                            charityId,
+                            quantityRequested,
+                            status
+                    );
+
+            requests.add(request);
+        }
+
+        cursor.close();
+
+        return requests;
+    }
+
+    // T6.12 - Get Requests by Food Institution
+    public java.util.List<DonationRequest> getRequestsByInstitution(
+            int foodOrganizationId
+    ) {
+
+        java.util.List<DonationRequest> requests =
+                new java.util.ArrayList<>();
+
+        String query =
+                "SELECT dr.id, dr.donation_id, " +
+                        "dr.charity_organization_id, " +
+                        "dr.quantity_requested, dr.status " +
+                        "FROM donation_requests dr " +
+                        "INNER JOIN food_donations fd " +
+                        "ON dr.donation_id = fd.id " +
+                        "WHERE fd.food_organization_id = ? " +
+                        "ORDER BY dr.id DESC";
+
+        Cursor cursor = database.rawQuery(
+                query,
+                new String[]{
+                        String.valueOf(foodOrganizationId)
+                }
+        );
+
+        while (cursor.moveToNext()) {
+
+            int id = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("id")
+            );
+
+            int donationId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow("donation_id")
+            );
+
+            int charityId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(
+                            "charity_organization_id"
+                    )
+            );
+
+            int quantityRequested = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(
+                            "quantity_requested"
+                    )
+            );
+
+            String status = cursor.getString(
+                    cursor.getColumnIndexOrThrow("status")
+            );
+
+            DonationRequest request =
+                    new DonationRequest(
+                            id,
+                            donationId,
+                            charityId,
+                            quantityRequested,
+                            status
+                    );
+
+            requests.add(request);
+        }
+
+        cursor.close();
+
+        return requests;
+    }
+
+    // T6.13 - Update Request Status
+    public int updateRequestStatus(
+            int requestId,
+            String status
+    ) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(
+                "status",
+                status
+        );
+
+        return database.update(
+                "donation_requests",
+                values,
+                "id = ?",
+                new String[]{
+                        String.valueOf(requestId)
+                }
+        );
+    }
+
+    // T6.8 - Accept Request and Update Donation Quantity
+    public boolean acceptRequest(int requestId) {
+
+        database.beginTransaction();
+
+        try {
+
+            String requestQuery =
+                    "SELECT donation_id, quantity_requested, status " +
+                            "FROM donation_requests " +
+                            "WHERE id = ?";
+
+            Cursor requestCursor =
+                    database.rawQuery(
+                            requestQuery,
+                            new String[]{
+                                    String.valueOf(requestId)
+                            }
+                    );
+
+            if (!requestCursor.moveToFirst()) {
+
+                requestCursor.close();
+                return false;
+            }
+
+            int donationId =
+                    requestCursor.getInt(
+                            requestCursor.getColumnIndexOrThrow(
+                                    "donation_id"
+                            )
+                    );
+
+            int quantityRequested =
+                    requestCursor.getInt(
+                            requestCursor.getColumnIndexOrThrow(
+                                    "quantity_requested"
+                            )
+                    );
+
+            String requestStatus =
+                    requestCursor.getString(
+                            requestCursor.getColumnIndexOrThrow(
+                                    "status"
+                            )
+                    );
+
+            requestCursor.close();
+
+            if (!"PENDING".equalsIgnoreCase(requestStatus)) {
+                return false;
+            }
+
+            String donationQuery =
+                    "SELECT quantity " +
+                            "FROM food_donations " +
+                            "WHERE id = ?";
+
+            Cursor donationCursor =
+                    database.rawQuery(
+                            donationQuery,
+                            new String[]{
+                                    String.valueOf(donationId)
+                            }
+                    );
+
+            if (!donationCursor.moveToFirst()) {
+
+                donationCursor.close();
+                return false;
+            }
+
+            int currentQuantity =
+                    donationCursor.getInt(
+                            donationCursor.getColumnIndexOrThrow(
+                                    "quantity"
+                            )
+                    );
+
+            donationCursor.close();
+
+            if (quantityRequested > currentQuantity) {
+                return false;
+            }
+
+            int remainingQuantity =
+                    currentQuantity - quantityRequested;
+
+            ContentValues donationValues =
+                    new ContentValues();
+
+            donationValues.put(
+                    "quantity",
+                    remainingQuantity
+            );
+
+            if (remainingQuantity == 0) {
+
+                donationValues.put(
+                        "status",
+                        "UNAVAILABLE"
+                );
+            }
+
+            int donationUpdated =
+                    database.update(
+                            "food_donations",
+                            donationValues,
+                            "id = ?",
+                            new String[]{
+                                    String.valueOf(donationId)
+                            }
+                    );
+
+            if (donationUpdated <= 0) {
+                return false;
+            }
+
+            ContentValues requestValues =
+                    new ContentValues();
+
+            requestValues.put(
+                    "status",
+                    "ACCEPTED"
+            );
+
+            int requestUpdated =
+                    database.update(
+                            "donation_requests",
+                            requestValues,
+                            "id = ?",
+                            new String[]{
+                                    String.valueOf(requestId)
+                            }
+                    );
+
+            if (requestUpdated <= 0) {
+                return false;
+            }
+
+            database.setTransactionSuccessful();
+
+            return true;
+
+        } finally {
+
+            database.endTransaction();
+        }
     }
 
     public void close() {
