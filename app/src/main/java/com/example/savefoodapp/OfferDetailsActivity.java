@@ -1,5 +1,6 @@
 package com.example.savefoodapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ public class OfferDetailsActivity extends AppCompatActivity {
     private TextView tvStatus;
 
     private Button btnBack;
+    private Button btnRequestFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +31,68 @@ public class OfferDetailsActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tvStatus);
 
         btnBack = findViewById(R.id.btnBack);
+        btnRequestFood = findViewById(R.id.btnRequestFood);
 
-        String foodName = getIntent().getStringExtra("FOOD_NAME");
-        int quantity = getIntent().getIntExtra("QUANTITY", 0);
-        String description = getIntent().getStringExtra("DESCRIPTION");
-        String expiryDate = getIntent().getStringExtra("EXPIRY_DATE");
-        String status = getIntent().getStringExtra("STATUS");
+        int donationId =
+                getIntent().getIntExtra("OFFER_ID", -1);
+
+        String foodName =
+                getIntent().getStringExtra("FOOD_NAME");
+
+        int quantity =
+                getIntent().getIntExtra("QUANTITY", 0);
+
+        String description =
+                getIntent().getStringExtra("DESCRIPTION");
+
+        String expiryDate =
+                getIntent().getStringExtra("EXPIRY_DATE");
+
+        String status =
+                getIntent().getStringExtra("STATUS");
 
         tvFoodName.setText(foodName);
         tvQuantity.setText("Quantity: " + quantity);
-        tvDescription.setText("Description: " + description);
-        tvExpiryDate.setText("Expiry Date: " + expiryDate);
-        tvStatus.setText("Status: " + status);
+        tvDescription.setText(
+                "Description: " + description
+        );
+        tvExpiryDate.setText(
+                "Expiry Date: " + expiryDate
+        );
+        tvStatus.setText(
+                "Status: " + status
+        );
 
-        btnBack.setOnClickListener(view -> finish());
+        btnBack.setOnClickListener(
+                view -> finish()
+        );
+
+        btnRequestFood.setOnClickListener(
+                view -> {
+
+                    Intent intent =
+                            new Intent(
+                                    OfferDetailsActivity.this,
+                                    RequestFoodActivity.class
+                            );
+
+                    intent.putExtra(
+                            "OFFER_ID",
+                            donationId
+                    );
+
+                    intent.putExtra(
+                            "FOOD_NAME",
+                            foodName
+                    );
+
+                    intent.putExtra(
+                            "AVAILABLE_QUANTITY",
+                            quantity
+                    );
+
+                    startActivity(intent);
+                }
+        );
     }
 }

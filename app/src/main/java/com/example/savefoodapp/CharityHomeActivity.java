@@ -24,6 +24,7 @@ public class CharityHomeActivity extends AppCompatActivity {
 
     private SessionManager sessionManager;
     private DBAdapter dbAdapter;
+    private Button btnMyRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class CharityHomeActivity extends AppCompatActivity {
         tvWelcome = findViewById(R.id.tvWelcome);
         btnAvailableOffers = findViewById(R.id.btnAvailableOffers);
         btnLogout = findViewById(R.id.btnLogout);
+        btnMyRequests = findViewById(R.id.btnMyRequests);
 
         // Initialize SessionManager
         sessionManager = new SessionManager(this);
@@ -64,6 +66,22 @@ public class CharityHomeActivity extends AppCompatActivity {
                         Intent intent = new Intent(
                                 CharityHomeActivity.this,
                                 AvailableOffersActivity.class
+                        );
+
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        // My Requests
+        btnMyRequests.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(
+                                CharityHomeActivity.this,
+                                MyRequestsActivity.class
                         );
 
                         startActivity(intent);

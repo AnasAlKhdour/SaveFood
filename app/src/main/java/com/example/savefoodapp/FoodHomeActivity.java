@@ -23,6 +23,7 @@ public class FoodHomeActivity extends AppCompatActivity {
     private Button btnAddOffer;
     private Button btnMyOffers;
     private Button btnLogout;
+    private Button btnIncomingRequests;
 
     private SessionManager sessionManager;
     private DBAdapter dbAdapter;
@@ -38,6 +39,7 @@ public class FoodHomeActivity extends AppCompatActivity {
 
         btnAddOffer = findViewById(R.id.btnAddOffer);
         btnMyOffers = findViewById(R.id.btnMyOffers);
+        btnIncomingRequests = findViewById(R.id.btnIncomingRequests);
         btnLogout = findViewById(R.id.btnLogout);
 
         sessionManager = new SessionManager(this);
@@ -88,6 +90,22 @@ public class FoodHomeActivity extends AppCompatActivity {
             }
         });
 
+        // Incoming Requests
+        btnIncomingRequests.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent(
+                                FoodHomeActivity.this,
+                                IncomingRequestsActivity.class
+                        );
+
+                        startActivity(intent);
+                    }
+                }
+        );
+
         // Logout
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,15 +151,10 @@ public class FoodHomeActivity extends AppCompatActivity {
                                         longitude
                                 );
 
-                        if (rowsUpdated > 0) {
+                        // Do not show success Toast.
+                        // Location is saved silently.
 
-                            Toast.makeText(
-                                    FoodHomeActivity.this,
-                                    "Location updated successfully",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-
-                        } else {
+                        if (rowsUpdated <= 0) {
 
                             Toast.makeText(
                                     FoodHomeActivity.this,
