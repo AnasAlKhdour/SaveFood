@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".RegisterActivity">
+    android:background="@color/savefood_background"
+    tools:context=".ui.auth.RegisterActivity">
 
     <ScrollView
         android:id="@+id/registerScrollView"
@@ -25,63 +25,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingTop="36dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="32dp">
+            android:paddingStart="@dimen/screen_padding"
+            android:paddingTop="@dimen/spacing_32"
+            android:paddingEnd="@dimen/screen_padding"
+            android:paddingBottom="@dimen/spacing_32">
 
-            <!-- Header -->
+            <!-- ==================================================== -->
+            <!-- HEADER -->
+            <!-- ==================================================== -->
 
             <TextView
                 android:id="@+id/tvRegisterTitle"
+                style="@style/SaveFood_Text_ScreenTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_title"
-                android:textAlignment="center"
-                android:textColor="#17202A"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/tvRegisterSubtitle"
+                style="@style/SaveFood_Text_Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/register_subtitle"
-                android:textAlignment="center"
-                android:textColor="#6B7280"
-                android:textSize="15sp" />
+                android:layout_marginTop="@dimen/spacing_8"
+                android:gravity="center"
+                android:text="@string/register_subtitle" />
 
-            <!-- Form Container -->
+            <!-- ==================================================== -->
+            <!-- FORM CARD -->
+            <!-- ==================================================== -->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/registerCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                app:cardBackgroundColor="@android:color/white"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#E5E7EB"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="@dimen/spacing_24"
+                app:cardBackgroundColor="@color/savefood_surface"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                app:strokeColor="@color/savefood_border"
+                app:strokeWidth="@dimen/card_stroke_width">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/card_padding_large">
 
-                    <!-- Name -->
+                    <!-- ================================================= -->
+                    <!-- NAME -->
+                    <!-- ================================================= -->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/nameInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name_hint"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
                         app:endIconMode="clear_text">
@@ -95,18 +99,21 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Email -->
+                    <!-- ================================================= -->
+                    <!-- EMAIL -->
+                    <!-- ================================================= -->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/spacing_12"
                         android:hint="@string/email_hint"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp">
 
@@ -119,18 +126,21 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Phone -->
+                    <!-- ================================================= -->
+                    <!-- PHONE -->
+                    <!-- ================================================= -->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/phoneInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/spacing_12"
                         android:hint="@string/phone_hint"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp">
 
@@ -143,18 +153,21 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Password -->
+                    <!-- ================================================= -->
+                    <!-- PASSWORD -->
+                    <!-- ================================================= -->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/spacing_12"
                         android:hint="@string/password_hint"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
                         app:endIconMode="password_toggle">
@@ -168,18 +181,21 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Confirm Password -->
+                    <!-- ================================================= -->
+                    <!-- CONFIRM PASSWORD -->
+                    <!-- ================================================= -->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/confirmPasswordInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/spacing_12"
                         android:hint="@string/confirm_password_hint"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
+                        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+                        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
                         app:endIconMode="password_toggle">
@@ -197,44 +213,45 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Role Section -->
+            <!-- ==================================================== -->
+            <!-- ROLE -->
+            <!-- ==================================================== -->
 
             <TextView
                 android:id="@+id/tvRoleTitle"
+                style="@style/SaveFood_Text_Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/role_title"
-                android:textColor="#17202A"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_card_title"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvRoleSubtitle"
+                style="@style/SaveFood_Text_Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/role_subtitle"
-                android:textColor="#6B7280"
-                android:textSize="14sp" />
+                android:layout_marginTop="@dimen/spacing_4"
+                android:text="@string/role_subtitle" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/roleCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardBackgroundColor="#FAFAFA"
-                app:cardCornerRadius="14dp"
+                android:layout_marginTop="@dimen/spacing_12"
+                app:cardBackgroundColor="@color/savefood_surface"
+                app:cardCornerRadius="@dimen/card_corner_radius_small"
                 app:cardElevation="0dp"
-                app:strokeColor="#E5E7EB"
-                app:strokeWidth="1dp">
+                app:strokeColor="@color/savefood_border"
+                app:strokeWidth="@dimen/card_stroke_width">
 
                 <RadioGroup
                     android:id="@+id/rgRole"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="8dp">
+                    android:padding="@dimen/spacing_8">
 
                     <RadioButton
                         android:id="@+id/rbFoodInstitution"
@@ -242,11 +259,11 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="?attr/colorPrimary"
                         android:minHeight="56dp"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
+                        android:paddingStart="@dimen/spacing_8"
+                        android:paddingEnd="@dimen/spacing_8"
                         android:text="@string/food_institution"
-                        android:textColor="#17202A"
-                        android:textSize="15sp" />
+                        android:textColor="@color/savefood_text_primary"
+                        android:textSize="@dimen/text_body_small" />
 
                     <RadioButton
                         android:id="@+id/rbCharity"
@@ -254,40 +271,43 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="?attr/colorPrimary"
                         android:minHeight="56dp"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
+                        android:paddingStart="@dimen/spacing_8"
+                        android:paddingEnd="@dimen/spacing_8"
                         android:text="@string/charity_organization"
-                        android:textColor="#17202A"
-                        android:textSize="15sp" />
+                        android:textColor="@color/savefood_text_primary"
+                        android:textSize="@dimen/text_body_small" />
 
                 </RadioGroup>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Register Button -->
+            <!-- ==================================================== -->
+            <!-- REGISTER BUTTON -->
+            <!-- ==================================================== -->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="28dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/register_button"
-                android:textAllCaps="false"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_body_small"
                 android:textStyle="bold"
-                app:cornerRadius="14dp" />
+                app:cornerRadius="@dimen/button_corner_radius" />
 
-            <!-- Login -->
+            <!-- ==================================================== -->
+            <!-- LOGIN LINK -->
+            <!-- ==================================================== -->
 
             <TextView
                 android:id="@+id/tvLogin"
+                style="@style/SaveFood_Text_Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/spacing_16"
                 android:gravity="center"
                 android:text="@string/login_prompt"
-                android:textColor="#6B7280"
-                android:textSize="14sp" />
+                android:textColor="@color/savefood_green" />
 
         </LinearLayout>
 

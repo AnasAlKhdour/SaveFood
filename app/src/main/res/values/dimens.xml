@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ==================================================== -->
+    <!-- SPACING -->
+    <!-- ==================================================== -->
+
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_12">12dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- SCREEN -->
+    <!-- ==================================================== -->
+
+    <dimen name="screen_padding">20dp</dimen>
+    <dimen name="screen_padding_large">24dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- CARDS -->
+    <!-- ==================================================== -->
+
+    <dimen name="card_corner_radius">20dp</dimen>
+    <dimen name="card_corner_radius_small">14dp</dimen>
+    <dimen name="card_corner_radius_large">24dp</dimen>
+
+    <dimen name="card_stroke_width">1dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_padding_large">18dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- BUTTONS -->
+    <!-- ==================================================== -->
+
+    <dimen name="button_height">52dp</dimen>
+    <dimen name="button_height_small">48dp</dimen>
+    <dimen name="button_corner_radius">14dp</dimen>
+    <dimen name="button_stroke_width">1dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- TEXT SIZES -->
+    <!-- ==================================================== -->
+
+    <dimen name="text_title">24sp</dimen>
+    <dimen name="text_section_title">20sp</dimen>
+    <dimen name="text_card_title">18sp</dimen>
+
+    <dimen name="text_body_large">16sp</dimen>
+    <dimen name="text_body">16sp</dimen>
+    <dimen name="text_body_small">15sp</dimen>
+    <dimen name="text_button">15sp</dimen>
+
+    <dimen name="text_secondary">14sp</dimen>
+    <dimen name="text_caption">13sp</dimen>
+    <dimen name="text_status">12sp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- INPUTS -->
+    <!-- ==================================================== -->
+
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="input_corner_radius">14dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- IMAGES -->
+    <!-- ==================================================== -->
+
+    <dimen name="image_corner_radius">18dp</dimen>
+    <dimen name="offer_image_height">170dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- ICONS -->
+    <!-- ==================================================== -->
+
+    <dimen name="icon_small">18dp</dimen>
+    <dimen name="icon_medium">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+
+
+    <!-- ==================================================== -->
+    <!-- DIVIDERS -->
+    <!-- ==================================================== -->
+
+    <dimen name="divider_width">1dp</dimen>
+
+</resources>

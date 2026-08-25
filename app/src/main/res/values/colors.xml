@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- SaveFood Primary Palette -->
+    <color name="savefood_green">#2E7D32</color>
+    <color name="savefood_green_dark">#1B5E20</color>
+    <color name="savefood_green_light">#E8F5E9</color>
+
+    <!-- Backgrounds / Surfaces -->
+    <color name="savefood_background">#F8FAF8</color>
+    <color name="savefood_surface">#FFFFFFFF</color>
+    <color name="savefood_surface_alt">#F1F5F1</color>
+
+    <!-- Text -->
+    <color name="savefood_text_primary">#1B1F1B</color>
+    <color name="savefood_text_secondary">#687068</color>
+    <color name="savefood_text_disabled">#9AA19A</color>
+
+    <!-- Borders / Dividers -->
+    <color name="savefood_border">#DCE3DC</color>
+    <color name="savefood_divider">#E8ECE8</color>
+
+    <!-- Status -->
+    <color name="savefood_success">#2E7D32</color>
+    <color name="savefood_success_light">#E8F5E9</color>
+
+    <color name="savefood_warning">#F9A825</color>
+    <color name="savefood_warning_light">#FFF8E1</color>
+
+    <color name="savefood_error">#D32F2F</color>
+    <color name="savefood_error_light">#FFEBEE</color>
+
 </resources>

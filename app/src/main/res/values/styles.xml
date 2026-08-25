@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ==================================================== -->
+    <!-- SAVEFOOD TEXT STYLES -->
+    <!-- ==================================================== -->
+
+    <style name="SaveFood_Text_ScreenTitle">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/savefood_text_primary</item>
+    </style>
+
+
+    <style name="SaveFood_Text_SectionTitle">
+        <item name="android:textSize">@dimen/text_section_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/savefood_text_primary</item>
+    </style>
+
+
+    <style name="SaveFood_Text_Body">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/savefood_text_primary</item>
+    </style>
+
+
+    <style name="SaveFood_Text_Secondary">
+        <item name="android:textSize">@dimen/text_secondary</item>
+        <item name="android:textColor">@color/savefood_text_secondary</item>
+    </style>
+
+</resources>

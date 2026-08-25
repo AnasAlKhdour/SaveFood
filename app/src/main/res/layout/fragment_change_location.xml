@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/savefood_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_padding_large"
+        android:paddingTop="@dimen/spacing_24"
+        android:paddingEnd="@dimen/screen_padding_large"
+        android:paddingBottom="@dimen/spacing_24">
+
+        <!-- ==================================================== -->
+        <!-- TITLE -->
+        <!-- ==================================================== -->
+
+        <TextView
+            android:id="@+id/tvChangeLocationTitle"
+            style="@style/SaveFood_Text_ScreenTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Location" />
+
+        <!-- ==================================================== -->
+        <!-- SUBTITLE -->
+        <!-- ==================================================== -->
+
+        <TextView
+            android:id="@+id/tvChangeLocationSubtitle"
+            style="@style/SaveFood_Text_Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:text="Choose a new location for your food organization." />
+
+        <!-- ==================================================== -->
+        <!-- LOCATION CARD -->
+        <!-- ==================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_24"
+            app:cardBackgroundColor="@color/savefood_surface"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:strokeColor="@color/savefood_border"
+            app:strokeWidth="@dimen/card_stroke_width">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <!-- Current Location -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Location"
+                    android:textColor="@color/savefood_text_secondary"
+                    android:textSize="@dimen/text_caption"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCurrentLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:text="Loading..."
+                    android:textColor="@color/savefood_text_primary"
+                    android:textSize="@dimen/text_body_large" />
+
+                <!-- Selected Location -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_20"
+                    android:text="Selected Location"
+                    android:textColor="@color/savefood_text_secondary"
+                    android:textSize="@dimen/text_caption"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSelectedLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:text="No new location selected"
+                    android:textColor="@color/savefood_text_primary"
+                    android:textSize="@dimen/text_body_large" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ==================================================== -->
+        <!-- CHOOSE LOCATION -->
+        <!-- ==================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChooseLocation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_20"
+            android:text="Choose Location on Map"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_button"
+            android:textStyle="bold"
+            app:backgroundTint="@color/savefood_green"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:rippleColor="@color/savefood_green_light" />
+
+        <!-- ==================================================== -->
+        <!-- SAVE LOCATION -->
+        <!-- ==================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveLocation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="Save Location"
+            android:textColor="@color/savefood_green"
+            android:textSize="@dimen/text_button"
+            android:textStyle="bold"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:rippleColor="@color/savefood_green_light"
+            app:strokeColor="@color/savefood_green"
+            app:strokeWidth="@dimen/card_stroke_width" />
+
+        <!-- ==================================================== -->
+        <!-- CANCEL -->
+        <!-- ==================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelChangeLocation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:text="Cancel"
+            android:textColor="@color/savefood_text_primary"
+            android:textSize="@dimen/text_button"
+            android:textStyle="bold"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:rippleColor="@color/savefood_green_light"
+            app:strokeColor="@color/savefood_border"
+            app:strokeWidth="@dimen/card_stroke_width" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
