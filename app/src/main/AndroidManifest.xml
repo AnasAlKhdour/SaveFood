@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- ==================================================== -->
+    <!-- PERMISSIONS -->
+    <!-- ==================================================== -->
+
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission
+        android:name="android.permission.CAMERA" />
+
+    <!-- ==================================================== -->
+    <!-- CAMERA FEATURE -->
+    <!-- ==================================================== -->
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
+    <!-- ==================================================== -->
+    <!-- APPLICATION -->
+    <!-- ==================================================== -->
 
     <application
         android:allowBackup="true"
@@ -19,86 +37,95 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveFood">
+
+        <!-- ================================================= -->
+        <!-- GOOGLE MAPS API KEY -->
+        <!-- ================================================= -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!-- ================================================= -->
+        <!-- SPLASH -->
+        <!-- ================================================= -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
+
+        <!-- ================================================= -->
+        <!-- AUTHENTICATION -->
+        <!-- ================================================= -->
+
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- ================================================= -->
+        <!-- FOOD - NEW MAIN STRUCTURE -->
+        <!-- ================================================= -->
+
         <activity
-            android:name=".FoodHomeActivity"
+            android:name=".ui.food.FoodMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+
+        <!-- ================================================= -->
+        <!-- CHARITY - NEW MAIN STRUCTURE -->
+        <!-- ================================================= -->
+
         <activity
-            android:name=".CharityHomeActivity"
+            android:name=".ui.charity.CharityMainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+
+
+        <!-- ================================================= -->
+        <!-- LOCATION -->
+        <!-- ================================================= -->
+
         <activity
-            android:name=".AddOfferActivity"
+            android:name=".ui.location.LocationPickerActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".MyOffersActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".EditOfferActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".AvailableOffersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OfferDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RequestFoodActivity"
-            android:exported="false" />
+
+        <!-- ================================================= -->
+        <!-- FILE PROVIDER -->
+        <!-- ================================================= -->
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+
         </provider>
 
-        <activity
-            android:name=".LocationPickerActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".MyRequestsActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".IncomingRequestsActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".RequestDetailsActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

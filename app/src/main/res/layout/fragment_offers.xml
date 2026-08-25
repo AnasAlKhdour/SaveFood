@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/savefood_background">
+
+    <!-- ==================================================== -->
+    <!-- SEARCH -->
+    <!-- ==================================================== -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSearch"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_padding_large"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:layout_marginEnd="@dimen/screen_padding_large"
+        android:hint="Search food"
+        app:boxCornerRadiusBottomEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusBottomStart="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopEnd="@dimen/input_corner_radius"
+        app:boxCornerRadiusTopStart="@dimen/input_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- ==================================================== -->
+    <!-- FILTER -->
+    <!-- ==================================================== -->
+
+    <Spinner
+        android:id="@+id/spinnerFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_padding_large"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:layout_marginEnd="@dimen/screen_padding_large"
+        android:backgroundTint="@color/savefood_green"
+        android:dropDownVerticalOffset="4dp"
+        android:popupBackground="@color/savefood_surface"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilSearch" />
+
+    <!-- ==================================================== -->
+    <!-- TITLE -->
+    <!-- ==================================================== -->
+
+    <TextView
+        android:id="@+id/tvOffersTitle"
+        style="@style/SaveFood_Text_Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_padding_large"
+        android:layout_marginTop="@dimen/spacing_20"
+        android:layout_marginEnd="@dimen/screen_padding_large"
+        android:text="Nearby Offers"
+        android:textSize="@dimen/text_section_title"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerFilter" />
+
+    <!-- ==================================================== -->
+    <!-- OFFERS -->
+    <!-- ==================================================== -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOffers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/spacing_16"
+        android:paddingTop="@dimen/spacing_12"
+        android:paddingEnd="@dimen/spacing_16"
+        android:paddingBottom="@dimen/spacing_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOffersTitle" />
+
+    <!-- ==================================================== -->
+    <!-- EMPTY STATE -->
+    <!-- ==================================================== -->
+
+    <LinearLayout
+        android:id="@+id/layoutEmptyOffers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_32"
+        android:layout_marginEnd="@dimen/spacing_32"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewOffers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewOffers">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🍽️"
+            android:textSize="46sp" />
+
+        <TextView
+            android:id="@+id/tvEmptyOffers"
+            style="@style/SaveFood_Text_Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:gravity="center"
+            android:text="No available offers" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

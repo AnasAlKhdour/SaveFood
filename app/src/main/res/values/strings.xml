@@ -88,7 +88,7 @@
     </string>
 
 
-    <!-- Add Offer -->
+    <!-- Add Offer Validation -->
     <string name="enter_food_name">
         Please enter food name
     </string>
@@ -103,6 +103,10 @@
 
     <string name="quantity_greater_than_zero">
         Quantity must be greater than 0
+    </string>
+
+    <string name="enter_description">
+        Enter description
     </string>
 
     <string name="enter_expiry_date">
@@ -131,6 +135,38 @@
 
     <string name="offer_created_successfully">
         Offer created successfully
+    </string>
+
+
+    <!-- Add Offer UI -->
+    <string name="add_food_offer">Add Food Offer</string>
+    <string name="food_name">Food Name</string>
+    <string name="quantity">Quantity</string>
+    <string name="description">Description</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="select_expiry_date">Select expiry date</string>
+
+    <string name="food_photo">Food Photo</string>
+    <string name="take_photo">Take Photo</string>
+
+    <string name="food_condition">Food Condition</string>
+    <string name="food_is_fresh">Food is fresh</string>
+    <string name="no_visible_mold">No visible mold</string>
+    <string name="no_unusual_smell">No unusual smell</string>
+    <string name="food_stored_properly">Food was stored properly</string>
+    <string name="packaging_intact">Packaging is intact</string>
+    <string name="food_safe_to_consume">Food is safe to consume</string>
+
+    <string name="create_offer">Create Offer</string>
+
+    <string name="photo_saved_successfully">Photo saved successfully</string>
+
+    <string name="valid_expiry_date">
+        Please select a valid expiry date
+    </string>
+
+    <string name="confirm_food_conditions">
+        Please confirm all food condition checks
     </string>
 
 
@@ -167,12 +203,11 @@
 
     <string name="continue_button">Continue</string>
 
-
     <string name="agree_rules_required">
-    You must agree to the SaveFood rules before continuing.
+        You must agree to the SaveFood rules before continuing.
     </string>
 
     <string name="organization_not_found">
-    Organization not found. Please register again.
-</string>
+        Organization not found. Please register again.
+    </string>
 </resources>

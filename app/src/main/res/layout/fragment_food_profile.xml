@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/savefood_background"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="32dp">
+
+        <!-- ==================================================== -->
+        <!-- PROFILE HEADER -->
+        <!-- ==================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/savefood_green"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@color/savefood_green_light"
+                    android:gravity="center"
+                    android:text="👤"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="Food Institution"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProfileRole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Food Institution"
+                    android:textColor="@color/savefood_green_light"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ==================================================== -->
+        <!-- ACCOUNT INFORMATION -->
+        <!-- ==================================================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="Account Information"
+            android:textColor="@color/savefood_text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/savefood_surface"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="1dp"
+            app:strokeColor="@color/savefood_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <!-- Email -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textColor="@color/savefood_text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvProfileEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="email@example.com"
+                    android:textColor="@color/savefood_text_primary"
+                    android:textSize="16sp" />
+
+
+                <!-- Phone -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Phone"
+                    android:textColor="@color/savefood_text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvProfilePhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Phone not set"
+                    android:textColor="@color/savefood_text_primary"
+                    android:textSize="16sp" />
+
+
+                <!-- Divider -->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/savefood_divider" />
+
+
+                <!-- Location -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="Registered Location"
+                    android:textColor="@color/savefood_text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvProfileLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Location not set"
+                    android:textColor="@color/savefood_text_primary"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ==================================================== -->
+        <!-- ACCOUNT ACTIONS -->
+        <!-- ==================================================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="Account"
+            android:textColor="@color/savefood_text_primary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <!-- Edit Profile -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Edit Profile"
+            android:textColor="@color/savefood_green"
+            android:textSize="15sp"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="16dp"
+            app:strokeColor="@color/savefood_green"
+            app:strokeWidth="1dp" />
+
+
+        <!-- Change Password -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Change Password"
+            android:textColor="@color/savefood_green"
+            android:textSize="15sp"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="16dp"
+            app:strokeColor="@color/savefood_green"
+            app:strokeWidth="1dp" />
+
+
+        <!-- Change Location -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChangeLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Change Location"
+            android:textColor="@color/savefood_green"
+            android:textSize="15sp"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="16dp"
+            app:strokeColor="@color/savefood_green"
+            app:strokeWidth="1dp" />
+
+
+        <!-- Logout -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProfileLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="Logout"
+            android:textColor="@color/savefood_green"
+            android:textSize="15sp"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="16dp"
+            app:strokeColor="@color/savefood_green"
+            app:strokeWidth="1dp" />
+
+
+        <!-- Delete Account -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Delete Account"
+            android:textColor="@color/savefood_error"
+            android:textSize="14sp"
+            app:backgroundTint="@color/savefood_surface"
+            app:cornerRadius="16dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
